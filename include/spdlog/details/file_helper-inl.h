@@ -30,7 +30,7 @@ SPDLOG_INLINE void file_helper::open(const filename_t &fname, bool truncate)
     close();
     filename_ = fname;
 
-    auto *mode = SPDLOG_FILENAME_T("ab");
+    auto *mode = SPDLOG_FILENAME_T("a+b");
     auto *trunc_mode = SPDLOG_FILENAME_T("wb");
 
     for (int tries = 0; tries < open_tries_; ++tries)
@@ -106,6 +106,11 @@ SPDLOG_INLINE size_t file_helper::size() const
 SPDLOG_INLINE const filename_t &file_helper::filename() const
 {
     return filename_;
+}
+
+SPDLOG_INLINE int file_helper::fileno() const
+{
+    return ::fileno(fd_);
 }
 
 //
